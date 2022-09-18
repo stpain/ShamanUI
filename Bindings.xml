@@ -1,0 +1,4 @@
+<Bindings>
+    <Binding name="CLICK ShamanUiMainhandWeapon:LeftButton" category="ShamanUI "/>
+    <Binding name="CLICK ShamanUiOffhandWeapon:LeftButton" category="ShamanUI "/>
+</Bindings>

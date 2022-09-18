@@ -1,0 +1,81 @@
+<Ui>
+    <Frame name="ShamanUI" mixin="ShamanUiMixin" parent="UIParent" frameStrata="HIGH" enableMouse="true" movable="true">
+        <Size x="133" y="29"/>
+        <Anchors>
+            <Anchor point="BOTTOM" x="0" y="340"/>
+        </Anchors>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="background" atlas="Warlock-Bar-EmptyShards" setAllPoints="true"/>
+            </Layer>
+        </Layers>
+
+        <Frames>
+            <Button name="ShamanUiMainhandWeapon" parentKey="mainhandWeapon" inherits="SecureActionButtonTemplate">
+                <Size x="40" y="40"/>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="0" y="0"/>
+                </Anchors>
+                <Attributes>
+                    <Attribute name="type" value="macro" />
+                </Attributes>
+                <Frames>
+                    <Cooldown parentKey="cooldown" inherits="CooldownFrameTemplate" setAllPoints="true">
+
+                    </Cooldown>
+                </Frames>
+            </Button>
+            <Button name="ShamanUiOffhandWeapon" parentKey="offhandWeapon" inherits="SecureActionButtonTemplate">
+                <Size x="40" y="40"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Attributes>
+                    <Attribute name="type" value="macro" />
+                </Attributes>
+                <Frames>
+                    <Cooldown parentKey="cooldown" inherits="CooldownFrameTemplate" setAllPoints="true">
+
+                    </Cooldown>
+                </Frames>
+            </Button>
+            <StatusBar parentKey="maelstromWeaponDuration" useParentLevel="true" minValue="0" maxValue="1" defaultValue="0.5" orientation="HORIZONTAL">
+                <Size y="11"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="10" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-10" y="0"/>
+                </Anchors>
+                <BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+                <BarColor r="0.30859375" g="0.04296875" b="0.52734375" a="0.6"/>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <Texture parentKey="icon">
+                            <Size x="14" y="14"/>
+                            <Anchors>
+                                <Anchor point="RIGHT" relativePoint="LEFT" x="-1" y="0"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                    <Layer level="OVERLAY">
+                        <FontString parentKey="text" inherits="GameFontNormalSmall" justifyH="RIGHT">
+                            <Size y="15"/>
+                            <Color r="1" g="1" b="1"/>
+                            <Anchors>
+                                <Anchor point="RIGHT" x="0" y="0"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </StatusBar>
+        </Frames>
+
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnEvent method="OnEvent"/>
+            <OnUpdate method="OnUpdate"/>
+            <OnMouseDown method="OnMouseDown"/>
+            <OnMouseUp method="OnMouseUp"/>
+        </Scripts>
+    </Frame>
+
+</Ui>

@@ -1,0 +1,9 @@
+## Interface: 30400
+## Author: theboringdad
+## Version: 0.1
+## Title: ShamanUI
+## Notes: Shaman UI stuff
+## SavedVariables: ShamanUiAccount
+
+ShamanUI.lua
+ShamanUI.xml
