@@ -1,6 +1,15 @@
 
 
+local addonName, addon = ...;
+
 local _, class = UnitClass("player")
+
+local L = {
+    MINIMAP_MENU_MAINHAND_WEAPON = "Show main hand",
+    MINIMAP_MENU_OFFHAND_WEAPON = "Show off hand",
+    -- MINIMAP_MENU_UNLOCK = "Unlock",
+    -- MINIMAP_MENU_RESET_SIZE = "Reset size",
+}
 
 if class ~= "SHAMAN" then
     return
@@ -97,13 +106,32 @@ function ShamanUiMixin:OnMouseDown(button)
 end
 
 function ShamanUiMixin:OnMouseUp(button)
-
     if button == "RightButton" then
         self:StopMovingOrSizing()
     end
 end
 
 function ShamanUiMixin:Init()
+
+    --self.resize:Init(self, 133 / 4, 29 / 4)
+
+    if not ShamanUiAccount then
+        ShamanUiAccount = {
+            imbues = {
+                mainhandWeapon = nil,
+                offhandWeapon = nil,
+            },
+            config = {
+                showMainhandWeapon = true,
+                showOffhandWeapon = true,
+            },
+            minimapButton = {},
+            shields = {},
+            bars = {},
+            shocks = {},
+            priorityLists = {},
+        }
+    end
 
     if ShamanUiAccount.imbues.mainhandWeapon then
         self:SetWeaponImbueButton(self.mainhandWeapon, ShamanUiAccount.imbues.mainhandWeapon, 16)
@@ -112,6 +140,68 @@ function ShamanUiMixin:Init()
         self:SetWeaponImbueButton(self.offhandWeapon, ShamanUiAccount.imbues.offhandWeapon, 17)
     end
 
+    self.mainhandWeapon:SetShown(ShamanUiAccount.config.showMainhandWeapon)
+    self.offhandWeapon:SetShown(ShamanUiAccount.config.showOffhandWeapon)
+
+    local menu = {
+        {
+            text = addonName,
+            isTitle = true,
+            notCheckable = true,
+        },
+        {
+            text = L.MINIMAP_MENU_MAINHAND_WEAPON,
+            checked = function()
+                if ShamanUiAccount.config.showMainhandWeapon ~= nil then
+                    return ShamanUiAccount.config.showMainhandWeapon
+                else
+                    return true;
+                end
+            end,
+            func = function()
+                ShamanUiAccount.config.showMainhandWeapon = not ShamanUiAccount.config.showMainhandWeapon
+                self.mainhandWeapon:SetShown(ShamanUiAccount.config.showMainhandWeapon)
+            end,
+            isNotRadio = true,
+        },
+        {
+            text = L.MINIMAP_MENU_OFFHAND_WEAPON,
+            checked = function()
+                if ShamanUiAccount.config.showOffhandWeapon ~= nil then
+                    return ShamanUiAccount.config.showOffhandWeapon
+                else
+                    return true;
+                end
+            end,
+            func = function()
+                ShamanUiAccount.config.showOffhandWeapon = not ShamanUiAccount.config.showOffhandWeapon
+                self.offhandWeapon:SetShown(ShamanUiAccount.config.showOffhandWeapon)
+            end,
+            isNotRadio = true,
+        },
+    }
+
+    local ldb = LibStub("LibDataBroker-1.1")
+    self.DataObject = ldb:NewDataObject(addonName, {
+        type = "launcher",
+        icon = 626006,
+        OnClick = function(ldbIcon, button)
+            if button == "LeftButton" then
+                EasyMenu(menu, ShamanUIMinimapButtonDropdown, ldbIcon, -100, 0, "MENU", 1.5)
+            end
+        end,
+        OnEnter = function()
+
+        end,
+        OnTooltipShow = function(tt)
+            if tt.AddLine then
+                tt:AddLine(addonName)
+            end
+        end
+    })
+
+
+    LibStub("LibDBIcon-1.0"):Register(addonName, self.DataObject, ShamanUiAccount.minimapButton)
 
 end
 
@@ -119,29 +209,20 @@ end
 function ShamanUiMixin:OnEvent(event, ...)
 
     if event == "ADDON_LOADED" then
-
-        if not ShamanUiAccount then
-            ShamanUiAccount = {
-                imbues = {
-                    mainhandWeapon = nil,
-                    offhandWeapon = nil,
-                },
-                config = {},
-                minimapButton = {},
-                shields = {},
-                bars = {},
-                shocks = {},
-                priorityLists = {},
-            }
-        end
-
-
         self:Init()
+        self:UnregisterEvent("ADDON_LOADED")
     end
 
 end
 
 function ShamanUiMixin:OnUpdate()
+
+    -- if not self.locked then
+    --     local x = self:GetHeight()
+    --     x = x * 1.3
+    --     self.mainhandWeapon:SetSize(x, x)
+    --     self.offhandWeapon:SetSize(x, x)
+    -- end
 
     for i = 1, 5 do
         self.shards[i]:Hide()

@@ -1,5 +1,6 @@
 <Ui>
-    <Frame name="ShamanUI" mixin="ShamanUiMixin" parent="UIParent" frameStrata="HIGH" enableMouse="true" movable="true">
+
+    <Frame name="ShamanUI" mixin="ShamanUiMixin" parent="UIParent" frameStrata="HIGH" enableMouse="true" movable="true" resizable="true">
         <Size x="133" y="29"/>
         <Anchors>
             <Anchor point="BOTTOM" x="0" y="340"/>
@@ -8,9 +9,19 @@
             <Layer level="BACKGROUND">
                 <Texture parentKey="background" atlas="Warlock-Bar-EmptyShards" setAllPoints="true"/>
             </Layer>
+            <Layer level="OVERLAY">
+                <Texture parentKey="highlight" setAllPoints="true" hidden="true">
+                    <Color r="0.35" g="0.74" b="0.88" a="0.4"/>
+                </Texture>
+            </Layer>
         </Layers>
 
         <Frames>
+
+            <Frame name="ShamanUIMinimapButtonDropdown" parentKey="minimapDropdown" inherits="UIDropDownMenuTemplate">
+
+            </Frame>
+
             <Button name="ShamanUiMainhandWeapon" parentKey="mainhandWeapon" inherits="SecureActionButtonTemplate">
                 <Size x="40" y="40"/>
                 <Anchors>
@@ -67,6 +78,15 @@
                     </Layer>
                 </Layers>
             </StatusBar>
+
+
+            <!-- <Button parentKey="resize" inherits="PanelResizeButtonTemplate" hidden="true">
+                <Size x="16" y="16"/>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" x="0" y="-16"/>
+                </Anchors>
+            </Button> -->
+            
         </Frames>
 
         <Scripts>

@@ -1,9 +1,12 @@
 ## Interface: 30400
 ## Author: theboringdad
-## Version: 0.1
+## Version: 1.0
 ## Title: ShamanUI
 ## Notes: Shaman UI stuff
 ## SavedVariables: ShamanUiAccount
+
+Libs\LibStub\LibStub.lua
+Libs\LibDbIcon-1.0\LibDbIcon-1.0.lua
 
 ShamanUI.lua
 ShamanUI.xml
