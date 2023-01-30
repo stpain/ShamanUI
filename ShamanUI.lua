@@ -258,7 +258,11 @@ function ShamanUiMixin:OnUpdate()
             self.mainhandWeapon.cooldown:SetCooldown(GetTime() - (((30*60*1000) - mainHandExpiration) / 1000), 30*60)
         end
     else
-        self.mainhandWeapon:SetNormalTexture(self.mainhandIcon)
+        if self.mainhandIcon then
+            self.mainhandWeapon:SetNormalTexture(self.mainhandIcon)
+        else
+            self.mainhandWeapon:SetNormalTexture(134400)
+        end
         self.mainhandWeapon.cooldown:SetCooldown(0,0)
     end
     if hasOffHandEnchant then
@@ -268,7 +272,11 @@ function ShamanUiMixin:OnUpdate()
             self.offhandWeapon.cooldown:SetCooldown(GetTime() - (((30*60*1000) - offHandExpiration) / 1000), 30*60)
         end
     else
-        self.offhandWeapon:SetNormalTexture(self.offhandIcon)
+        if self.offhandIcon then
+            self.offhandWeapon:SetNormalTexture(self.offhandIcon)
+        else
+            self.offhandWeapon:SetNormalTexture(134400)
+        end
         self.offhandWeapon.cooldown:SetCooldown(0,0)
     end
 end
